@@ -1,0 +1,7 @@
+.env
+storage/*
+!storage/.htaccess
+env-infinityfree.txt
+*.sqlite
+.DS_Store
+node_modules/

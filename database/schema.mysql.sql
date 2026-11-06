@@ -1,0 +1,225 @@
+-- Purrfect Pet Care - MySQL / MariaDB schema
+-- Run automatically by install.php. Requires MySQL 5.7+ or MariaDB 10.3+.
+
+SET NAMES utf8mb4;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(190) NOT NULL UNIQUE,
+  phone VARCHAR(30) NULL,
+  address VARCHAR(255) NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(10) NOT NULL DEFAULT 'owner',
+  status VARCHAR(10) NOT NULL DEFAULT 'active',
+  specialization VARCHAR(120) NULL,
+  last_login DATETIME NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_users_role (role)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS password_resets (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  token_hash CHAR(64) NOT NULL,
+  expires_at DATETIME NOT NULL,
+  used_at DATETIME NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_pr_token (token_hash),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS login_attempts (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(190) NOT NULL,
+  ip VARCHAR(45) NOT NULL,
+  attempted_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_la_email (email, attempted_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS settings (
+  setting_key VARCHAR(60) PRIMARY KEY,
+  setting_value TEXT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS services (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  description TEXT NULL,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0,
+  duration_minutes INT NOT NULL DEFAULT 30,
+  active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS pets (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  owner_id INT UNSIGNED NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  species VARCHAR(40) NOT NULL,
+  breed VARCHAR(100) NULL,
+  sex VARCHAR(10) NULL,
+  date_of_birth DATE NULL,
+  weight_kg DECIMAL(6,2) NULL,
+  color VARCHAR(60) NULL,
+  microchip VARCHAR(60) NULL,
+  notes TEXT NULL,
+  status VARCHAR(12) NOT NULL DEFAULT 'active',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_pets_owner (owner_id),
+  FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS appointments (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  owner_id INT UNSIGNED NOT NULL,
+  pet_id INT UNSIGNED NOT NULL,
+  vet_id INT UNSIGNED NULL,
+  service_id INT UNSIGNED NULL,
+  appt_date DATE NOT NULL,
+  appt_time TIME NOT NULL,
+  reason TEXT NULL,
+  status VARCHAR(12) NOT NULL DEFAULT 'pending',
+  vet_notes TEXT NULL,
+  price DECIMAL(10,2) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_appt_date (appt_date),
+  INDEX idx_appt_owner (owner_id),
+  INDEX idx_appt_vet (vet_id),
+  FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE,
+  FOREIGN KEY (vet_id) REFERENCES users(id) ON DELETE SET NULL,
+  FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS health_records (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT UNSIGNED NOT NULL,
+  vet_id INT UNSIGNED NULL,
+  appointment_id INT UNSIGNED NULL,
+  record_date DATE NOT NULL,
+  record_type VARCHAR(20) NOT NULL DEFAULT 'checkup',
+  title VARCHAR(200) NOT NULL,
+  diagnosis TEXT NULL,
+  treatment TEXT NULL,
+  prescription TEXT NULL,
+  weight_kg DECIMAL(6,2) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_hr_pet (pet_id),
+  FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE,
+  FOREIGN KEY (vet_id) REFERENCES users(id) ON DELETE SET NULL,
+  FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS vaccinations (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  pet_id INT UNSIGNED NOT NULL,
+  vet_id INT UNSIGNED NULL,
+  vaccine VARCHAR(120) NOT NULL,
+  date_given DATE NOT NULL,
+  next_due DATE NULL,
+  batch_no VARCHAR(60) NULL,
+  notes TEXT NULL,
+  reminder_sent TINYINT(1) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_vac_pet (pet_id),
+  INDEX idx_vac_due (next_due),
+  FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE,
+  FOREIGN KEY (vet_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS payments (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  appointment_id INT UNSIGNED NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  method VARCHAR(10) NOT NULL,
+  status VARCHAR(12) NOT NULL DEFAULT 'pending',
+  reference VARCHAR(40) NOT NULL UNIQUE,
+  provider_ref VARCHAR(100) NULL,
+  checkout_request_id VARCHAR(100) NULL,
+  phone VARCHAR(20) NULL,
+  description VARCHAR(255) NULL,
+  failure_reason VARCHAR(255) NULL,
+  recorded_by INT UNSIGNED NULL,
+  paid_at DATETIME NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_pay_user (user_id),
+  INDEX idx_pay_checkout (checkout_request_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE SET NULL,
+  FOREIGN KEY (recorded_by) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS forum_posts (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  content TEXT NOT NULL,
+  status VARCHAR(10) NOT NULL DEFAULT 'pending',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_fp_status (status),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS forum_replies (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  post_id INT UNSIGNED NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
+  content TEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (post_id) REFERENCES forum_posts(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS adoption_listings (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  species VARCHAR(40) NOT NULL,
+  breed VARCHAR(100) NULL,
+  age_text VARCHAR(40) NULL,
+  sex VARCHAR(10) NULL,
+  description TEXT NULL,
+  status VARCHAR(12) NOT NULL DEFAULT 'available',
+  created_by INT UNSIGNED NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS adoption_requests (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  listing_id INT UNSIGNED NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
+  message TEXT NULL,
+  status VARCHAR(10) NOT NULL DEFAULT 'pending',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (listing_id) REFERENCES adoption_listings(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS lost_found (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  report_type VARCHAR(6) NOT NULL,
+  species VARCHAR(40) NOT NULL,
+  pet_name VARCHAR(100) NULL,
+  description TEXT NOT NULL,
+  location VARCHAR(200) NOT NULL,
+  event_date DATE NOT NULL,
+  contact_phone VARCHAR(30) NULL,
+  status VARCHAR(10) NOT NULL DEFAULT 'open',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS notifications (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  title VARCHAR(150) NOT NULL,
+  message TEXT NULL,
+  link VARCHAR(100) NULL,
+  is_read TINYINT(1) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_notif_user (user_id, is_read),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

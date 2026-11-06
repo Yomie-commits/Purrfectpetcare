@@ -1,1489 +1,289 @@
-﻿<!DOCTYPE html>
-<!-- 
-SECURITY NOTICE:
-- Default credentials have been removed for security
-- Create your first admin account through registration
-- Change all sample passwords immediately after setup
--->
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purrfect Pet Care | Complete Pet Wellness Solutions</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Complete pet healthcare management system for Kenya. Book vet appointments, get vaccination reminders, telemedicine consultations, and more.">
-    <meta name="keywords" content="pet care, veterinary, Kenya, pet health, vet appointments, telemedicine, pet adoption">
-    <meta name="author" content="Purrfect Pet Care">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Purrfect Pet Care | Complete Pet Wellness Solutions">
-    <meta property="og:description" content="Complete pet healthcare management system for Kenya. Book vet appointments, get vaccination reminders, telemedicine consultations, and more.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yomiecommits.co.ke">
-    <meta property="og:image" content="paws1.png">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Purrfect Pet Care | Complete Pet Wellness Solutions">
-    <meta name="twitter:description" content="Complete pet healthcare management system for Kenya. Book vet appointments, get vaccination reminders, telemedicine consultations, and more.">
-    <meta name="twitter:image" content="paws1.png">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4CAF50">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Pet Care">
-
-    <!-- External CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="dashboard-features.css">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="main.js" as="script">
-    <link rel="preload" href="main.css" as="style">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Purrfect Pet Care | Veterinary Clinic in Nairobi</title>
+  <meta name="description" content="Compassionate veterinary care in Nairobi: wellness exams, vaccinations, dental care and emergency services. Book online and manage your pet's health records.">
+  <link rel="icon" type="image/png" href="assets/img/paw-favicon.png?v=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/app.css?v=6" rel="stylesheet">
 </head>
+<body data-bs-spy="scroll" data-bs-target="#siteNav" data-bs-offset="80">
 
-<body>
-    <!-- Loading Spinner -->
-    <div id="spinner" class="spinner"></div>
-
-    <!-- Toast Container -->
-    <div id="toast-container"></div>
-
-    <!-- Main Content -->
-    <div id="main-content">
-
-        <!-- Header -->
-        <header>
-            <div class="container">
-                <div class="navbar">
-                    <div class="logo">
-                        <img src="paws1.png" alt="Purrfect Pet Care Logo">
-                        <span class="logo-text">Purrfect Pet Care</span>
-                    </div>
-                    <div class="nav-links">
-                        <a href="#home" class="active" title="Home" aria-label="Home">Home</a>
-                        <a href="#services" title="Services" aria-label="Services">Services</a>
-                        <a href="#pricing" title="Pricing" aria-label="Pricing">Pricing</a>
-                        <a href="#about" title="About Us" aria-label="About Us">About Us</a>
-                        <a href="#testimonials" title="Testimonials" aria-label="Testimonials">Testimonials</a>
-                        <a href="#contact" title="Contact" aria-label="Contact">Contact</a>
-                        <a href="#" id="login-btn" title="Login" aria-label="Login">Login</a>
-                    </div>
-                    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu -->
-            <div class="mobile-menu" id="mobile-menu">
-                <div class="nav-links">
-                    <a href="#home" class="active" title="Home" aria-label="Home">Home</a>
-                    <a href="#services" title="Services" aria-label="Services">Services</a>
-                    <a href="#pricing" title="Pricing" aria-label="Pricing">Pricing</a>
-                    <a href="#about" title="About Us" aria-label="About Us">About Us</a>
-                    <a href="#testimonials" title="Testimonials" aria-label="Testimonials">Testimonials</a>
-                    <a href="#contact" title="Contact" aria-label="Contact">Contact</a>
-                    <a href="#" id="mobile-login-btn" title="Login" aria-label="Login">Login</a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Complete Care for Your Furry Family</h1>
-                    <p>From routine checkups to emergency care, we provide compassionate veterinary services tailored to
-                        your pet's unique needs.</p>
-                    <div>
-                        <a href="#" class="btn" id="hero-book-appointment-btn">Book an Appointment</a>
-                        <a href="#services" class="btn btn-outline">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="section" id="services">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Our Comprehensive Services</h2>
-                    <p>We offer a full range of veterinary services to keep your pets healthy and happy at every stage
-                        of
-                        life.</p>
-                </div>
-                <div class="features">
-                    <div class="feature-card">
-                        <div class="feature-img">
-                            <img src="catwellness.avif" alt="Wellness Exams" loading="lazy">
-                        </div>
-                        <div class="feature-content">
-                            <h3>Wellness Exams</h3>
-                            <p>Regular check-ups are the foundation of preventive care. Our comprehensive wellness exams
-                                include complete physical examinations, weight and nutrition assessments, and customized
-                                vaccination plans.</p>
-                            <button class="btn btn-sm btn-primary mt-3" data-service="Wellness Exam">Book Now</button>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-img">
-                            <img src="catwellness.jpeg" alt="Cat Wellness Exam" loading="lazy">
-                        </div>
-                        <div class="feature-content">
-                            <h3>Feline Wellness</h3>
-                            <p>Specialized care for your feline friends. Our cat wellness services include
-                                feline-specific
-                                vaccinations, nutrition counseling, behavioral assessment, and senior cat health
-                                screening.
-                            </p>
-                            <button class="btn btn-sm btn-primary mt-3" data-service="Feline Wellness">Book Now</button>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-img">
-                            <img src="dental.jpeg" alt="Dental Care" loading="lazy">
-                        </div>
-                        <div class="feature-content">
-                            <h3>Dental Care</h3>
-                            <p>Professional cleanings and treatments to maintain your pet's oral health. Our dental
-                                services
-                                include dental exams, cleanings, tooth extractions, oral surgery, and dental X-rays.</p>
-                            <button class="btn btn-sm btn-primary mt-3" data-service="Dental Care">Book Now</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing Section -->
-        <section class="section" id="pricing">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Service Pricing</h2>
-                    <p>Transparent and competitive pricing for all our veterinary services.</p>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-primary text-white">
-                                <h3 class="text-center">Basic Care</h3>
-                            </div>
-                            <div class="card-body text-center">
-                                <h4 class="card-title">KSh 2,500</h4>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Wellness Exam</li>
-                                    <li class="list-group-item">Basic Vaccinations</li>
-                                    <li class="list-group-item">Nutrition Consultation</li>
-                                </ul>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button class="btn btn-primary" data-service="Basic Care" data-price="2500">Book
-                                    Now</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-success text-white">
-                                <h3 class="text-center">Premium Care</h3>
-                            </div>
-                            <div class="card-body text-center">
-                                <h4 class="card-title">KSh 4,500</h4>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Comprehensive Exam</li>
-                                    <li class="list-group-item">All Vaccinations</li>
-                                    <li class="list-group-item">Dental Cleaning</li>
-                                    <li class="list-group-item">Parasite Prevention</li>
-                                </ul>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button class="btn btn-success" data-service="Premium Care" data-price="4500">Book
-                                    Now</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <div class="card-header bg-warning text-dark">
-                                <h3 class="text-center">Emergency Care</h3>
-                            </div>
-                            <div class="card-body text-center">
-                                <h4 class="card-title">KSh 7,000</h4>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">24/7 Emergency Service</li>
-                                    <li class="list-group-item">Immediate Treatment</li>
-                                    <li class="list-group-item">Diagnostic Tests</li>
-                                    <li class="list-group-item">Overnight Monitoring</li>
-                                </ul>
-                            </div>
-                            <div class="card-footer text-center">
-                                <button class="btn btn-warning" data-service="Emergency Care" data-price="7000">Book
-                                    Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-title">
-                    <h2>About Purrfect Pet Care</h2>
-                    <p>Your trusted partner in pet health and wellness for over 15 years.</p>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Our Mission</h3>
-                        <p>We are committed to providing the highest quality veterinary care with compassion, expertise,
-                            and dedication. Our team of experienced veterinarians and staff work together to ensure your
-                            pets receive the best possible care.</p>
-
-                        <h3>Our Values</h3>
-                        <ul>
-                            <li>Compassionate care for every pet</li>
-                            <li>Professional excellence in veterinary medicine</li>
-                            <li>Transparent communication with pet owners</li>
-                            <li>Continuous learning and improvement</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Why Choose Us?</h3>
-                        <ul>
-                            <li>Experienced veterinary team</li>
-                            <li>State-of-the-art facilities</li>
-                            <li>Comprehensive care services</li>
-                            <li>Emergency care availability</li>
-                            <li>Affordable pricing</li>
-                            <li>Convenient online booking</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="section" id="testimonials">
-            <div class="container">
-                <div class="section-title">
-                    <h2>What Our Clients Say</h2>
-                    <p>Read testimonials from satisfied pet owners who trust us with their furry family members.</p>
-                </div>
-                <div class="testimonials">
-                    <div class="testimonial">
-                        <div class="testimonial-text">
-                            <p>"The care my dog received was exceptional. The staff was professional and caring
-                                throughout the entire process."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <strong>- Sarah Johnson</strong>
-                        </div>
-                    </div>
-                    <div class="testimonial">
-                        <div class="testimonial-text">
-                            <p>"I've been bringing my cats here for years. The veterinarians are knowledgeable and
-                                always take the time to explain everything."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <strong>- Michael Chege</strong>
-                        </div>
-                    </div>
-                    <div class="testimonial">
-                        <div class="testimonial-text">
-                            <p>"Emergency care saved my pet's life. The team responded quickly and provided excellent
-                                treatment."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <strong>- Lisa Ngugi</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Contact Us</h2>
-                    <p>Get in touch with us for any questions or to schedule an appointment.</p>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h3>Contact Information</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> 123 Pet Care Street, Nairobi, Kenya</p>
-                        <p><i class="fas fa-phone"></i> +254 700 123 456</p>
-                        <p><i class="fas fa-envelope"></i> info@purrfectpetcare.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM<br>Sat: 9:00 AM - 4:00
-                            PM<br>Emergency: 24/7</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="#services" data-service="Wellness Exams">Wellness Exams</a></li>
-                            <li><a href="#services" data-service="Feline Wellness">Vaccinations</a></li>
-                            <li><a href="#services" data-service="Dental Care">Dental Care</a></li>
-                            <li><a href="#pricing" data-service="Emergency Care">Surgery</a></li>
-                            <li><a href="#pricing" data-service="Emergency Care">Emergency Care</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-column">
-                        <h3>Purrfect Pet Care</h3>
-                        <p>Your trusted partner in pet health and wellness.</p>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Services</h3>
-                        <ul>
-                            <li><a href="#services">Wellness Exams</a></li>
-                            <li><a href="#services">Vaccinations</a></li>
-                            <li><a href="#services">Dental Care</a></li>
-                            <li><a href="#services">Emergency Care</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Contact</h3>
-                        <ul>
-                            <li><a href="tel:+254700123456">+254 700 123 456</a></li>
-                            <li><a href="mailto:info@purrfectpetcare.com">info@purrfectpetcare.com</a></li>
-                            <li><a href="#contact">Visit Us</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h3>Follow Us</h3>
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2025 Purrfect Pet Care. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Appointment Modal -->
-        <div class="modal" id="appointment-modal">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Book an Appointment</h3>
-                    <button class="close-btn" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="appointment-form">
-                        <div class="form-group">
-                            <label for="appointment-name" class="form-label">Pet Name</label>
-                            <input type="text" id="appointment-name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-service" class="form-label">Service</label>
-                            <select id="appointment-service" name="service" class="form-control" required>
-                                <option value="">Select a service</option>
-                                <option value="Wellness Exam">Wellness Exam</option>
-                                <option value="Feline Wellness">Feline Wellness</option>
-                                <option value="Dental Care">Dental Care</option>
-                                <option value="Basic Care">Basic Care</option>
-                                <option value="Premium Care">Premium Care</option>
-                                <option value="Emergency Care">Emergency Care</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-date" class="form-label">Preferred Date</label>
-                            <input type="date" id="appointment-date" name="date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-time" class="form-label">Preferred Time</label>
-                            <select id="appointment-time" name="time" class="form-control" required>
-                                <option value="">Select time</option>
-                                <option value="09:00">9:00 AM</option>
-                                <option value="10:00">10:00 AM</option>
-                                <option value="11:00">11:00 AM</option>
-                                <option value="14:00">2:00 PM</option>
-                                <option value="15:00">3:00 PM</option>
-                                <option value="16:00">4:00 PM</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-notes" class="form-label">Additional Notes</label>
-                            <textarea id="appointment-notes" name="notes" class="form-control" rows="3"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Book Appointment</button>
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Login Modal -->
-        <div class="modal" id="login-modal">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Login</h3>
-                    <button class="close-btn" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="login-form">
-                        <div class="form-group">
-                            <label for="login-email" class="form-label">Email</label>
-                            <input type="email" id="login-email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="login-password" class="form-label">Password</label>
-                            <div class="password-toggle">
-                                <input type="password" id="login-password" name="password" class="form-control"
-                                    required>
-                                <button type="button" class="password-toggle-btn"
-                                    aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Login</button>
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                        </div>
-                        <div class="form-links">
-                            <p class="text-center mt-3">
-                                <a href="#" id="forgot-password-link">Forgot Password?</a>
-                            </p>
-                            <p class="text-center mt-3">
-                                Don't have an account? <a href="#" id="show-register">Register here</a>
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Register Modal -->
-        <div class="modal" id="register-modal">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Register</h3>
-                    <button class="close-btn" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="register-form">
-                        <div class="form-group">
-                            <label for="register-name" class="form-label">Full Name</label>
-                            <input type="text" id="register-name" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-email" class="form-label">Email</label>
-                            <input type="email" id="register-email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-password" class="form-label">Password</label>
-                            <div class="password-toggle">
-                                <input type="password" id="register-password" name="password" class="form-control"
-                                    required>
-                                <button type="button" class="password-toggle-btn"
-                                    aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="register-confirm-password" class="form-label">Confirm Password</label>
-                            <div class="password-toggle">
-                                <input type="password" id="register-confirm-password" name="confirm-password" class="form-control"
-                                    required>
-                                <button type="button" class="password-toggle-btn"
-                                    aria-label="Toggle password visibility">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerRole" class="form-label">Role</label>
-                            <select id="registerRole" name="role" class="form-control" required>
-                                <option value="">Select role</option>
-                                <option value="owner">Pet Owner</option>
-                                <option value="vet">Veterinarian</option>
-                                <option value="admin">Administrator</option>
-                            </select>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Register</button>
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                        </div>
-                        <p class="text-center mt-3">
-                            Already have an account? <a href="#" id="show-login">Login here</a>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Forgot Password Modal -->
-        <div class="modal" id="forgot-password-modal">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Forgot Password</h3>
-                    <button class="close-btn" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="forgot-password-form">
-                        <div class="form-group">
-                            <label for="forgot-email" class="form-label">Email Address</label>
-                            <input type="email" id="forgot-email" name="email" class="form-control" required>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Reset Password</button>
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                        </div>
-                        <p class="text-center mt-3">
-                            Remember your password? <a href="#" id="show-login-from-forgot">Login here</a>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dashboard Container (Hidden by default) -->
-        <div id="dashboard-container" class="dashboard-container" style="display: none;">
-            <!-- Dashboard Header -->
-            <div class="dashboard-header">
-                <div class="container">
-                    <div class="dashboard-nav">
-                        <div class="dashboard-brand">
-                            <img src="assets/images/paws1.png" alt="Purrfect Pet Care Logo" class="dashboard-logo">
-                            <span class="dashboard-title">Purrfect Pet Care</span>
-                        </div>
-                        <div class="dashboard-user-info">
-                            <span id="dashboard-username">Welcome</span>
-                            <span id="dashboard-role" class="role-badge"></span>
-                            <button class="btn btn-sm btn-outline-secondary" onclick="logout()">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dashboard Layout -->
-            <div class="dashboard-layout">
-                <!-- Dashboard Sidebar -->
-                <div class="dashboard-sidebar">
-                    <div class="dashboard-welcome">
-                        <img src="assets/images/paws1.png" alt="Welcome" class="welcome-icon">
-                        <h4 id="sidebar-username">Welcome</h4>
-                        <p id="sidebar-role">User</p>
-                    </div>
-                    
-                    <nav id="dashboard-menu" class="dashboard-menu">
-                        <!-- Menu items will be loaded dynamically based on user role -->
-                    </nav>
-                </div>
-
-                <!-- Dashboard Content -->
-                <div class="dashboard-content">
-                    <!-- Dashboard Stats -->
-                    <div id="dashboard-stats" class="dashboard-stats">
-                        <!-- Stats will be loaded dynamically -->
-                    </div>
-
-                    <!-- Dashboard Sections -->
-                    <div class="dashboard-sections">
-                        <!-- Owner Dashboard Sections -->
-                        <div id="owner-overview" class="dashboard-section active">
-                            <div class="section-header">
-                                <h2><i class="fas fa-home"></i> Overview</h2>
-                                <p>Welcome back! Here's what's happening with your pets today.</p>
-                            </div>
-                            <div class="recent-activity">
-                                <h3>Recent Activity</h3>
-                                <div id="owner-recent-activity" class="activity-list">
-                                    <!-- Recent activity will be loaded here -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="owner-pets" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-paw"></i> My Pets</h2>
-                                <button class="btn btn-primary" onclick="openAddPetModal()">
-                                    <i class="fas fa-plus"></i> Add Pet
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Breed</th>
-                                            <th>Age</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="owner-pets-tbody">
-                                        <!-- Pets will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="owner-appointments" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-calendar"></i> Appointments</h2>
-                                <button class="btn btn-primary" onclick="openAddAppointmentModal()">
-                                    <i class="fas fa-plus"></i> Book Appointment
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Pet</th>
-                                            <th>Purpose</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="owner-appointments-tbody">
-                                        <!-- Appointments will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="owner-health" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-heartbeat"></i> Health Records</h2>
-                                <button class="btn btn-primary" onclick="openAddHealthRecordModal()">
-                                    <i class="fas fa-plus"></i> Add Record
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Pet</th>
-                                            <th>Type</th>
-                                            <th>Description</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="owner-health-tbody">
-                                        <!-- Health records will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="owner-vaccinations" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-syringe"></i> Vaccinations</h2>
-                                <button class="btn btn-primary" onclick="openAddVaccinationModal()">
-                                    <i class="fas fa-plus"></i> Schedule Vaccination
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Pet</th>
-                                            <th>Vaccine</th>
-                                            <th>Status</th>
-                                            <th>Next Due</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="owner-vaccinations-tbody">
-                                        <!-- Vaccinations will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="owner-payments" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-credit-card"></i> Payments</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Service</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="owner-payments-tbody">
-                                        <!-- Payments will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Vet Dashboard Sections -->
-                        <div id="vet-overview" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-home"></i> Overview</h2>
-                                <p>Welcome Dr. Smith! Here's your schedule for today.</p>
-                            </div>
-                            <div class="recent-activity">
-                                <h3>Today's Schedule</h3>
-                                <div id="vet-recent-activity" class="activity-list">
-                                    <!-- Vet activity will be loaded here -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="vet-appointments" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-calendar"></i> Appointments</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Pet</th>
-                                            <th>Owner</th>
-                                            <th>Purpose</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="vet-appointments-tbody">
-                                        <!-- Vet appointments will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="vet-records" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-file-medical"></i> Patient Records</h2>
-                                <button class="btn btn-primary" onclick="openAddPatientRecordModal()">
-                                    <i class="fas fa-plus"></i> Add Record
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Pet Name</th>
-                                            <th>Owner</th>
-                                            <th>Last Visit</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="vet-records-tbody">
-                                        <!-- Patient records will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="vet-telemedicine" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-video"></i> Telemedicine</h2>
-                                <button class="btn btn-primary" onclick="openTelemedicineModal()">
-                                    <i class="fas fa-plus"></i> Start Session
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Pet</th>
-                                            <th>Owner</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="vet-telemedicine-tbody">
-                                        <!-- Telemedicine sessions will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="vet-prescriptions" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-prescription"></i> Prescriptions</h2>
-                                <button class="btn btn-primary" onclick="openPrescriptionModal()">
-                                    <i class="fas fa-plus"></i> New Prescription
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Pet</th>
-                                            <th>Medication</th>
-                                            <th>Dosage</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="vet-prescriptions-tbody">
-                                        <!-- Prescriptions will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Admin Dashboard Sections -->
-                        <div id="admin-overview" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-home"></i> Admin Overview</h2>
-                                <p>System overview and key metrics.</p>
-                            </div>
-                            <div class="recent-activity">
-                                <h3>System Activity</h3>
-                                <div id="admin-recent-activity" class="activity-list">
-                                    <!-- Admin activity will be loaded here -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="admin-users" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-users"></i> User Management</h2>
-                                <button class="btn btn-primary" onclick="openAddUserModal()">
-                                    <i class="fas fa-plus"></i> Add User
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-users-tbody">
-                                        <!-- Users will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="admin-pets" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-paw"></i> Pet Management</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Owner</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-pets-tbody">
-                                        <!-- All pets will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="admin-appointments" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-calendar"></i> All Appointments</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Pet</th>
-                                            <th>Owner</th>
-                                            <th>Vet</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-appointments-tbody">
-                                        <!-- All appointments will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="admin-reports" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-chart-bar"></i> Reports</h2>
-                                <button class="btn btn-primary" onclick="generateReport()">
-                                    <i class="fas fa-download"></i> Generate Report
-                                </button>
-                            </div>
-                            <div class="reports-grid">
-                                <div class="report-card">
-                                    <h3>Monthly Revenue</h3>
-                                    <div class="report-chart" id="revenue-chart">
-                                        <!-- Chart will be loaded here -->
-                                    </div>
-                                </div>
-                                <div class="report-card">
-                                    <h3>Appointment Statistics</h3>
-                                    <div class="report-chart" id="appointments-chart">
-                                        <!-- Chart will be loaded here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="admin-forum" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-comments"></i> Forum Management</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Author</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-forum-tbody">
-                                        <!-- Forum posts will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="admin-payments" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-credit-card"></i> Payment Management</h2>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="dashboard-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>User</th>
-                                            <th>Service</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="admin-payments-tbody">
-                                        <!-- All payments will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div id="admin-settings" class="dashboard-section">
-                            <div class="section-header">
-                                <h2><i class="fas fa-cog"></i> System Settings</h2>
-                                <button class="btn btn-primary" onclick="saveSettings()">
-                                    <i class="fas fa-save"></i> Save Settings
-                                </button>
-                            </div>
-                            <div class="settings-form">
-                                <div class="form-group">
-                                    <label>System Name</label>
-                                    <input type="text" class="form-control" value="Purrfect Pet Care" id="system-name">
-                                </div>
-                                <div class="form-group">
-                                    <label>Contact Email</label>
-                                    <input type="email" class="form-control" value="info@purrfectpetcare.com" id="contact-email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Emergency Contact</label>
-                                    <input type="text" class="form-control" value="+254 700 123 456" id="emergency-contact">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Actions FAB -->
-        <div id="fab" class="fab" title="Quick Actions" aria-label="Quick Actions">
-            <i class="fas fa-plus"></i>
-        </div>
-
-        <!-- Quick Actions Modal -->
-        <div class="modal" id="quick-actions-modal">
-            <div class="modal-overlay" tabindex="-1"></div>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Quick Actions</h3>
-                    <button class="close-btn" aria-label="Close">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="quick-actions-grid">
-                        <button class="quick-action-btn" data-action="add-pet">
-                            <i class="fas fa-paw"></i>
-                            <span>Add Pet</span>
-                        </button>
-                        <button class="quick-action-btn" data-action="add-appointment">
-                            <i class="fas fa-calendar-plus"></i>
-                            <span>Book Appointment</span>
-                        </button>
-                        <button class="quick-action-btn" data-action="add-health-record">
-                            <i class="fas fa-file-medical"></i>
-                            <span>Health Record</span>
-                        </button>
-                        <button class="quick-action-btn" data-action="add-vaccination">
-                            <i class="fas fa-syringe"></i>
-                            <span>Vaccination</span>
-                        </button>
-                        <button class="quick-action-btn" data-action="payment">
-                            <i class="fas fa-credit-card"></i>
-                            <span>Payment</span>
-                        </button>
-                        <button class="quick-action-btn" data-action="adoption">
-                            <i class="fas fa-home"></i>
-                            <span>Adoption</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+  <nav class="navbar navbar-expand-lg navbar-dark site-nav fixed-top" id="siteNav">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
+        <img src="assets/img/paws1.png" alt=""><span class="fw-semibold" data-clinic="name">Purrfect Pet Care</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks" aria-label="Toggle menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navLinks">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link" href="#message">Contact</a></li>
+          <li class="nav-item ms-lg-2" id="navAuth">
+            <button class="btn btn-brand btn-sm px-3" data-auth="login">Log in</button>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <!-- External JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="main.js"></script>
-    <script src="dashboard-features.js"></script>
-    <script src="dashboard.js"></script>
-    <script src="script.js"></script>
-    <script src="real-time-notifications.js"></script>
-    <script src="accessibility.js"></script>
-    <script src="admin-analytics.js"></script>
-    
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('assets/js/service-worker.js')
-                    .then(function(registration) {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.log('ServiceWorker registration failed: ', error);
-                    });
-            });
-        }
-    </script>
-
-    <!-- Dashboard Modals -->
-    
-    <!-- Add Pet Modal -->
-    <div class="modal" id="add-pet-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New Pet</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="add-pet-form">
-                    <div class="form-group">
-                        <label for="pet-name" class="form-label">Pet Name</label>
-                        <input type="text" id="pet-name" name="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-type" class="form-label">Pet Type</label>
-                        <select id="pet-type" name="type" class="form-control" required>
-                            <option value="">Select type</option>
-                            <option value="Dog">Dog</option>
-                            <option value="Cat">Cat</option>
-                            <option value="Bird">Bird</option>
-                            <option value="Rabbit">Rabbit</option>
-                            <option value="Fish">Fish</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-breed" class="form-label">Breed</label>
-                        <input type="text" id="pet-breed" name="breed" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-age" class="form-label">Age (years)</label>
-                        <input type="number" id="pet-age" name="age" class="form-control" min="0" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-weight" class="form-label">Weight (kg)</label>
-                        <input type="number" id="pet-weight" name="weight" class="form-control" min="0" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-color" class="form-label">Color</label>
-                        <input type="text" id="pet-color" name="color" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="pet-notes" class="form-label">Notes</label>
-                        <textarea id="pet-notes" name="notes" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Add Pet</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('add-pet-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <header class="hero" id="home">
+    <div class="container">
+      <h1>Complete Care for Your Furry Family</h1>
+      <p class="my-4">From routine check-ups to emergency care, we provide compassionate veterinary services tailored to your pet's unique needs. Book online, keep track of vaccinations and pay with M-Pesa.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-brand btn-lg px-4" data-book>Book an Appointment</button>
+        <a href="#services" class="btn btn-outline-light btn-lg px-4">Learn More</a>
+      </div>
     </div>
+  </header>
 
-    <!-- Add Appointment Modal -->
-    <div class="modal" id="add-appointment-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Book Appointment</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Comprehensive Services</h2>
+        <p>We offer a full range of veterinary services to keep your pets healthy and happy at every stage of life.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img src="assets/img/catwellness.avif" alt="Vet examining a pet" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5">Wellness Exams</h3>
+              <p class="text-muted">Regular check-ups are the foundation of preventive care: complete physical examinations, weight and nutrition assessments, and customised vaccination plans.</p>
+              <button class="btn btn-outline-brand btn-sm" data-book="Wellness Exam">Book now</button>
             </div>
-            <div class="modal-body">
-                <form id="add-appointment-form">
-                    <div class="form-group">
-                        <label for="appointment-pet" class="form-label">Pet</label>
-                        <select id="appointment-pet" name="pet_id" class="form-control" required>
-                            <option value="">Select pet</option>
-                            <!-- Pets will be loaded dynamically -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="appointment-date" class="form-label">Date</label>
-                        <input type="date" id="appointment-date" name="date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="appointment-time" class="form-label">Time</label>
-                        <select id="appointment-time" name="time" class="form-control" required>
-                            <option value="">Select time</option>
-                            <option value="09:00">9:00 AM</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="appointment-purpose" class="form-label">Purpose</label>
-                        <select id="appointment-purpose" name="purpose" class="form-control" required>
-                            <option value="">Select purpose</option>
-                            <option value="Wellness Exam">Wellness Exam</option>
-                            <option value="Vaccination">Vaccination</option>
-                            <option value="Dental Care">Dental Care</option>
-                            <option value="Surgery">Surgery</option>
-                            <option value="Emergency">Emergency</option>
-                            <option value="Follow-up">Follow-up</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="appointment-notes" class="form-label">Notes</label>
-                        <textarea id="appointment-notes" name="notes" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Book Appointment</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('add-appointment-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+          </div>
         </div>
-    </div>
-
-    <!-- Add Health Record Modal -->
-    <div class="modal" id="add-health-record-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add Health Record</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img src="assets/img/catwellness.jpeg" alt="Cat wellness check" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5">Feline Wellness</h3>
+              <p class="text-muted">Specialised care for your feline friends: cat-specific vaccinations, nutrition counselling, behavioural assessment and senior cat screening.</p>
+              <button class="btn btn-outline-brand btn-sm" data-book="Feline Wellness">Book now</button>
             </div>
-            <div class="modal-body">
-                <form id="add-health-record-form">
-                    <div class="form-group">
-                        <label for="health-pet" class="form-label">Pet</label>
-                        <select id="health-pet" name="pet_id" class="form-control" required>
-                            <option value="">Select pet</option>
-                            <!-- Pets will be loaded dynamically -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="health-date" class="form-label">Date</label>
-                        <input type="date" id="health-date" name="date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="health-type" class="form-label">Record Type</label>
-                        <select id="health-type" name="type" class="form-control" required>
-                            <option value="">Select type</option>
-                            <option value="Checkup">Checkup</option>
-                            <option value="Vaccination">Vaccination</option>
-                            <option value="Surgery">Surgery</option>
-                            <option value="Treatment">Treatment</option>
-                            <option value="Test">Test</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="health-description" class="form-label">Description</label>
-                        <textarea id="health-description" name="description" class="form-control" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="health-vet" class="form-label">Veterinarian</label>
-                        <input type="text" id="health-vet" name="vet" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="health-cost" class="form-label">Cost (KSh)</label>
-                        <input type="number" id="health-cost" name="cost" class="form-control" min="0" step="0.01">
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Add Record</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('add-health-record-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+          </div>
         </div>
-    </div>
-
-    <!-- Add Vaccination Modal -->
-    <div class="modal" id="add-vaccination-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Schedule Vaccination</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <img src="assets/img/dental.jpeg" alt="Pet dental care" loading="lazy">
+            <div class="card-body">
+              <h3 class="h5">Dental Care</h3>
+              <p class="text-muted">Professional cleanings and treatments to maintain your pet's oral health, including dental exams, scaling, extractions and dental X-rays.</p>
+              <button class="btn btn-outline-brand btn-sm" data-book="Dental Care">Book now</button>
             </div>
-            <div class="modal-body">
-                <form id="add-vaccination-form">
-                    <div class="form-group">
-                        <label for="vaccination-pet" class="form-label">Pet</label>
-                        <select id="vaccination-pet" name="pet_id" class="form-control" required>
-                            <option value="">Select pet</option>
-                            <!-- Pets will be loaded dynamically -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="vaccination-type" class="form-label">Vaccine Type</label>
-                        <select id="vaccination-type" name="vaccine_type" class="form-control" required>
-                            <option value="">Select vaccine</option>
-                            <option value="Rabies">Rabies</option>
-                            <option value="DHPP">DHPP (Dogs)</option>
-                            <option value="FVRCP">FVRCP (Cats)</option>
-                            <option value="Bordetella">Bordetella</option>
-                            <option value="Lyme">Lyme Disease</option>
-                            <option value="Leptospirosis">Leptospirosis</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="vaccination-date" class="form-label">Date</label>
-                        <input type="date" id="vaccination-date" name="date" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="vaccination-next-due" class="form-label">Next Due Date</label>
-                        <input type="date" id="vaccination-next-due" name="next_due" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="vaccination-notes" class="form-label">Notes</label>
-                        <textarea id="vaccination-notes" name="notes" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Schedule Vaccination</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('add-vaccination-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Telemedicine Modal -->
-    <div class="modal" id="telemedicine-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Start Telemedicine Session</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="telemedicine-form">
-                    <div class="form-group">
-                        <label for="telemedicine-pet" class="form-label">Patient</label>
-                        <select id="telemedicine-pet" name="pet_id" class="form-control" required>
-                            <option value="">Select patient</option>
-                            <!-- Patients will be loaded dynamically -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="telemedicine-owner" class="form-label">Owner</label>
-                        <input type="text" id="telemedicine-owner" name="owner" class="form-control" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="telemedicine-reason" class="form-label">Reason for Consultation</label>
-                        <textarea id="telemedicine-reason" name="reason" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="telemedicine-duration" class="form-label">Session Duration</label>
-                        <select id="telemedicine-duration" name="duration" class="form-control" required>
-                            <option value="15">15 minutes</option>
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">1 hour</option>
-                        </select>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Start Session</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('telemedicine-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+  <section class="section bg-cream" id="pricing">
+    <div class="container">
+      <div class="section-title">
+        <h2>Service Pricing</h2>
+        <p>Transparent and competitive pricing. Pay at the clinic, by M-Pesa or by card.</p>
+      </div>
+      <div class="row g-4 justify-content-center" id="priceList">
+        <div class="col-12 text-center text-muted py-4"><span class="spinner-border spinner-border-sm"></span> Loading prices…</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About Us</h2>
+        <p>Dedicated to providing exceptional veterinary care with compassion and expertise.</p>
+      </div>
+      <div class="row g-5 align-items-center">
+        <div class="col-md-6">
+          <h3 class="h4">Our Mission</h3>
+          <p>At <span data-clinic="name">Purrfect Pet Care</span>, we believe every pet deserves the highest quality veterinary care. Our team of experienced veterinarians and staff is committed to compassionate, comprehensive care for your companions.</p>
+          <h3 class="h4 mt-4">Why choose us?</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fa-solid fa-check text-brand me-2"></i>Experienced veterinary team</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-brand me-2"></i>Online booking and digital health records</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-brand me-2"></i>Automatic vaccination reminders</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-brand me-2"></i>Emergency services available</li>
+            <li class="mb-2"><i class="fa-solid fa-check text-brand me-2"></i>M-Pesa and card payments</li>
+          </ul>
         </div>
-    </div>
-
-    <!-- Prescription Modal -->
-    <div class="modal" id="prescription-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>New Prescription</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="prescription-form">
-                    <div class="form-group">
-                        <label for="prescription-pet" class="form-label">Patient</label>
-                        <select id="prescription-pet" name="pet_id" class="form-control" required>
-                            <option value="">Select patient</option>
-                            <!-- Patients will be loaded dynamically -->
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="prescription-medication" class="form-label">Medication</label>
-                        <input type="text" id="prescription-medication" name="medication" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prescription-dosage" class="form-label">Dosage</label>
-                        <input type="text" id="prescription-dosage" name="dosage" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prescription-frequency" class="form-label">Frequency</label>
-                        <select id="prescription-frequency" name="frequency" class="form-control" required>
-                            <option value="">Select frequency</option>
-                            <option value="Once daily">Once daily</option>
-                            <option value="Twice daily">Twice daily</option>
-                            <option value="Three times daily">Three times daily</option>
-                            <option value="As needed">As needed</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="prescription-duration" class="form-label">Duration</label>
-                        <input type="text" id="prescription-duration" name="duration" class="form-control" placeholder="e.g., 7 days">
-                    </div>
-                    <div class="form-group">
-                        <label for="prescription-notes" class="form-label">Instructions</label>
-                        <textarea id="prescription-notes" name="notes" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Create Prescription</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('prescription-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+        <div class="col-md-6">
+          <img src="assets/img/dental.avif" alt="Our veterinary team at work" class="img-fluid rounded-4 shadow">
         </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Add User Modal (Admin) -->
-    <div class="modal" id="add-user-modal">
-        <div class="modal-overlay" tabindex="-1"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Add New User</h3>
-                <button class="close-btn" aria-label="Close">&times;</button>
+  <section class="section testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Pet Parents Say</h2>
+        <p>Hear from the families we care for.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="testimonial"><p>"The team saved my dog's life when he ate chocolate. Their quick response and expert care made all the difference."</p><strong>Sarah J.</strong> <small class="text-muted">Dog mom</small></div></div>
+        <div class="col-md-4"><div class="testimonial"><p>"The vets take the time to explain everything and never rush us. They helped us manage our senior cat's diabetes with a customised plan."</p><strong>Michael T.</strong> <small class="text-muted">Cat dad</small></div></div>
+        <div class="col-md-4"><div class="testimonial"><p>"As a first-time bird owner I was nervous. The avian vet was incredibly knowledgeable and the follow-up care is exceptional."</p><strong>Amina K.</strong> <small class="text-muted">Bird lover</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta text-center">
+    <div class="container">
+      <h2>Ready to give your pet the best care?</h2>
+      <p class="mb-4 opacity-75">Schedule an appointment today and experience the difference.</p>
+      <button class="btn btn-brand btn-lg px-4 me-2 mb-2" data-book>Book Now</button>
+      <a class="btn btn-outline-light btn-lg px-4 mb-2" data-clinic-tel href="#"><i class="fa-solid fa-phone me-2"></i>Call us</a>
+    </div>
+  </section>
+
+  <section class="section" id="message">
+    <div class="container">
+      <div class="section-title">
+        <h2>Send us a message</h2>
+        <p>Questions about a pet, prices or opening hours? Write to us and the front desk will reply by phone or email.</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form id="contactForm" class="card p-4 shadow-sm border-0" novalidate>
+            <div class="row g-3">
+              <div class="col-md-4"><label class="form-label" for="cfName">Your name</label><input class="form-control" id="cfName" name="name" maxlength="120" required autocomplete="name"></div>
+              <div class="col-md-4"><label class="form-label" for="cfPhone">Phone</label><input class="form-control" id="cfPhone" name="phone" type="tel" autocomplete="tel" placeholder="07XX XXX XXX"></div>
+              <div class="col-md-4"><label class="form-label" for="cfEmail">Email</label><input class="form-control" id="cfEmail" name="email" type="email" autocomplete="email"></div>
+              <div class="col-12"><label class="form-label" for="cfSubject">Subject</label><input class="form-control" id="cfSubject" name="subject" maxlength="150" required></div>
+              <div class="col-12"><label class="form-label" for="cfMessage">Message</label><textarea class="form-control" id="cfMessage" name="message" rows="4" maxlength="3000" required></textarea></div>
+              <div class="d-none" aria-hidden="true"><label>Leave empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+              <div class="col-12"><div data-error class="small mb-2"></div><button class="btn btn-brand px-4" type="submit"><i class="fa-solid fa-paper-plane me-2"></i>Send message</button>
+                <span class="small text-muted ms-2">Give a phone number or email so we can reply.</span></div>
             </div>
-            <div class="modal-body">
-                <form id="add-user-form">
-                    <div class="form-group">
-                        <label for="user-name" class="form-label">Full Name</label>
-                        <input type="text" id="user-name" name="name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-email" class="form-label">Email</label>
-                        <input type="email" id="user-email" name="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-role" class="form-label">Role</label>
-                        <select id="user-role" name="role" class="form-control" required>
-                            <option value="">Select role</option>
-                            <option value="owner">Pet Owner</option>
-                            <option value="vet">Veterinarian</option>
-                            <option value="admin">Administrator</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="user-phone" class="form-label">Phone</label>
-                        <input type="tel" id="user-phone" name="phone" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="user-address" class="form-label">Address</label>
-                        <textarea id="user-address" name="address" class="form-control" rows="2"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Add User</button>
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('add-user-modal')">Cancel</button>
-                    </div>
-                </form>
-            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </section>
 
-</div>
+  <footer class="site-footer" id="contact">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <h5 data-clinic="name">Purrfect Pet Care</h5>
+          <p>Compassionate veterinary care for your furry, feathered and scaled family members.</p>
+        </div>
+        <div class="col-6 col-md-2">
+          <h5>Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#" data-auth="login">Client login</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-3">
+          <h5>Pet parents</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" data-auth="register">Create an account</a></li>
+            <li><a href="#" data-book>Book an appointment</a></li>
+            <li><a href="app.html#adoption" data-needs-login>Adopt a pet</a></li>
+            <li><a href="app.html#lostfound" data-needs-login>Lost &amp; found</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact us</h5>
+          <ul class="list-unstyled">
+            <li class="mb-1"><i class="fa-solid fa-location-dot me-2"></i><span data-clinic="address"></span></li>
+            <li class="mb-1"><i class="fa-solid fa-phone me-2"></i><span data-clinic="phone"></span></li>
+            <li class="mb-1"><i class="fa-solid fa-envelope me-2"></i><span data-clinic="email"></span></li>
+            <li class="mb-1"><i class="fa-solid fa-clock me-2"></i><span data-clinic="hours"></span></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <p class="text-center small mb-0">&copy; <span id="year"></span> <span data-clinic="name">Purrfect Pet Care</span>. All rights reserved.</p>
+    </div>
+  </footer>
 
+  <!-- Login / register / forgot password -->
+  <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <ul class="nav auth-tabs" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabLogin" type="button">Log in</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabRegister" type="button">Create account</button></li>
+          </ul>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <div id="authNote" class="alert alert-info small d-none"></div>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tabLogin">
+              <form id="loginForm" novalidate>
+                <div class="mb-3"><label class="form-label">Email</label><input type="email" name="email" class="form-control" required autocomplete="email"></div>
+                <div class="mb-2"><label class="form-label">Password</label><input type="password" name="password" class="form-control" required autocomplete="current-password"></div>
+                <div class="text-end mb-3"><a href="#" class="small" data-bs-toggle="tab" data-bs-target="#tabForgot">Forgot password?</a></div>
+                <div class="text-danger small mb-2" data-error></div>
+                <button class="btn btn-brand w-100" type="submit">Log in</button>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="tabRegister">
+              <form id="registerForm" novalidate>
+                <div class="mb-3">
+                  <label class="form-label">I am a…</label>
+                  <select name="role" class="form-select" id="regRole">
+                    <option value="owner" selected>Pet parent</option>
+                    <option value="vet">Veterinarian</option>
+                    <option value="reception">Receptionist</option>
+                    <option value="assistant">Vet assistant</option>
+                    <option value="admin">Clinic administrator</option>
+                  </select>
+                  <div class="form-text d-none" id="regRoleNote">Staff accounts are activated after a clinic administrator approves them.</div>
+                </div>
+                <div class="mb-3 d-none" id="regSpecWrap"><label class="form-label">Specialisation (optional)</label><input name="specialization" class="form-control" placeholder="e.g. Small animals, avian, surgery"></div>
+                <div class="mb-3"><label class="form-label">Full name</label><input name="name" class="form-control" required autocomplete="name"></div>
+                <div class="row g-2 mb-3">
+                  <div class="col-sm-6"><label class="form-label">Email</label><input type="email" name="email" class="form-control" required autocomplete="email"></div>
+                  <div class="col-sm-6"><label class="form-label">Phone (M-Pesa)</label><input name="phone" class="form-control" placeholder="0712 345 678" autocomplete="tel"></div>
+                </div>
+                <div class="row g-2 mb-3">
+                  <div class="col-sm-6"><label class="form-label">Password</label><input type="password" name="password" class="form-control" required minlength="8" autocomplete="new-password"></div>
+                  <div class="col-sm-6"><label class="form-label">Confirm password</label><input type="password" name="password2" class="form-control" required autocomplete="new-password"></div>
+                </div>
+                <div class="form-text mb-3">At least 8 characters, with letters and numbers.</div>
+                <div class="text-danger small mb-2" data-error></div>
+                <button class="btn btn-brand w-100" type="submit">Create account</button>
+              </form>
+            </div>
+            <div class="tab-pane fade" id="tabForgot">
+              <form id="forgotForm" novalidate>
+                <p class="small text-muted">Enter your email and we'll send you a link to reset your password.</p>
+                <div class="mb-3"><label class="form-label">Email</label><input type="email" name="email" class="form-control" required></div>
+                <div class="small mb-2" data-error></div>
+                <button class="btn btn-brand w-100" type="submit">Send reset link</button>
+                <div class="text-center mt-3"><a href="#" class="small" data-bs-toggle="tab" data-bs-target="#tabLogin">Back to log in</a></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/common.js?v=6"></script>
+  <script src="assets/js/site.js?v=6"></script>
 </body>
-
 </html>
